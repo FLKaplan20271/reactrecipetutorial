@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 //<!--import logo from './logo.svg';-->
 import './App.css';
 
 const App = () => {
   const APP_ID = "5a5e9826";
   const APP_KEY = "e1212c585972fd1b76046045a56cf850";
-  const exampleReq = 'https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}'
-  
-  const [counter, setCounter] = useState(0);
+ 
 
-  useEffect(() => { 
-    console.log('Effect has been run'); 
-  },[]);
+  useEffect( () => { getRecipes() },[]);
+
+  const getRecipes = async () => {
+    const response = await fetch(`https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`);
+      const data = await response.json();
+    console.log(data.hits);
+  };
 
   return (
     <div className="App">
@@ -21,7 +23,7 @@ const App = () => {
             Search
         </button>
       </form>
-      <h1 onClick={() => setCounter(counter + 1)} >{counter}</h1>
+
     </div>
   );
 };
